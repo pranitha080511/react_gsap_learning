@@ -1,7 +1,7 @@
 import { useState,useEffect } from 'react'
 import './App.css'
 
-function App() {
+function Lesson1() {
   const [text, setText] = useState("Not clicked")
   const [productPrice, setProductPrice] = useState(null)
   const [shippingCost, setShippingCost] = useState(null)
@@ -101,4 +101,4 @@ function App() {
   )
 }
 
-export default App
+export default Lesson1

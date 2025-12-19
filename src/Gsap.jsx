@@ -1,39 +1,43 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
 
 const Gsap = () => {
-  const boxRef = useRef(null);
 
   useEffect(() => {
-    
     const tl = gsap.timeline();
 
-    tl.from(boxRef.current, {
+    // 1️⃣ Animate boxes from bottom
+    tl.from(".box", {
       y: 200,
       backgroundColor: 'pink',
-      duration: 2,
-      ease: "power2.out"
+      duration: 1.5,
+      ease: "power2.out",
+      stagger: 0.2   // 🔥 stagger added
     })
-    .to(boxRef.current, {
+
+    // 2️⃣ Move them back to position
+    .to(".box", {
       y: 0,
       duration: 0.5,
-      ease: "power2.out"
-    });
+      ease: "power2.out",
+      stagger: 0.2
+    })
 
-    
-    tl.fromTo(
-      boxRef.current,
+    // 3️⃣ Horizontal movement with rotation
+    .fromTo(
+      ".box",
       {
-        x: -220,         
+        x: -220,
         rotation: 0,
       },
       {
-        x: window.innerWidth - 200,  
+        x: window.innerWidth - 200,
         rotation: 360,
         backgroundColor: 'green',
-        duration: 3,
+        duration: 2,
         ease: "elastic.out(1, 0.4)",
-        repeat: 1,     
+        stagger: 0.3,  // 🔥 stagger effect
+        repeat: 1,
         yoyo: true
       }
     );
@@ -41,23 +45,28 @@ const Gsap = () => {
   }, []);
 
   return (
-    <div
-      ref={boxRef}
-      style={{
-        width: '200px',
-        padding: '20px',
-        backgroundColor: 'blue',  
-        color: 'white',
-        position: 'absolute',
-        left: '-220px',          
-        top: '100px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
-    >
-      <p>Hello</p>
-    </div>
+    <>
+      {[1, 2, 3].map((item) => (
+        <div
+          key={item}
+          className="box"
+          style={{
+            width: '200px',
+            padding: '20px',
+            backgroundColor: 'blue',
+            color: 'white',
+            position: 'absolute',
+            left: '-220px',
+            top: `${100 + item * 80}px`,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <p>Hello {item}</p>
+        </div>
+      ))}
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 function UseState() {
   const [user, setUser] = useState({
@@ -8,6 +8,16 @@ function UseState() {
   });
 
   const [skill, setSkill] = useState("");
+  
+  useEffect(() => {
+  if (user.name) {
+    document.title = `User: ${user.name}`;
+  }
+  console.log("Name:", user.name);
+  console.log("Email:", user.email);
+  console.log("Skills:", user.skills.join(", "));
+  }, [user]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +41,9 @@ function UseState() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`User Info:\nName: ${user.name}\nEmail: ${user.email}\nSkills: ${user.skills.join(", ")}`);
+    alert(
+      `User Info:\nName: ${user.name}\nEmail: ${user.email}\nSkills: ${user.skills.join(", ")}`
+    );
   };
 
   return (
@@ -69,6 +81,5 @@ function UseState() {
       <button type="submit">Submit</button>
     </form>
   );
-}
-
+} 
 export default UseState;
